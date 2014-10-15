@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui" lang="ja">
+<h:head>
+	<title>Left Pane</title>
+</h:head>
+<h:body>
+	<h:form>
+		<div class="leftPane">
+			<h:graphicImage url="/resources/images/" />
+			<h:panelGrid columns="2" cellpadding="10">
+				<h:outputText value="ニックネーム：" />
+				<h:outputText value="nick" />
+				<h:outputText value="趣味：" />
+				<h:outputText value="interest" />
+				<h:outputText value="職業：" />
+				<h:outputText value="job" />
+				<h:outputText value="好きなもの：" />
+				<h:outputText value="likeit" />
+				<h:outputText value="好きなブランド：" />
+				<h:outputText value="product" />
+				<h:outputText value="よく使う路線：" />
+				<h:outputText value="route" />
+			</h:panelGrid>
+			<p:accordionPanel>
+				<p:tab title="設定">
+					<h:panelGrid columns="2" cellpadding="10">
+						<h:outputText value="詳細設定" />
+						<h:commandButton value="Setting" action="/views/setting" />
+					</h:panelGrid>
+				</p:tab>
+			</p:accordionPanel>
+		</div>
+	</h:form>
+</h:body>
+</html>

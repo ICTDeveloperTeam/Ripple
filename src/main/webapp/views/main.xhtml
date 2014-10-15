@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="./../template/masterTemplate.xhtml">
+    
+    <ui:define name="title">
+        main
+    </ui:define>
+    
+    <ui:define name="content">
+        <div>
+            <f:metadata>
+                <f:viewParam name="oauth_token" value="#{callBackBean.oauthToken}" />
+                <f:viewParam name="oauth_verifier" value="#{callBackBean.oauthVerifier}" />
+                <f:viewAction action="#{callBackBean.preRender()}" />
+            </f:metadata>
+            <h:outputLabel value="#{callBackBean.loginUserName}" />さん、ログインに成功しました。
+        </div>
+        <div class="good-past-record">
+            <h1>過去のいいね受信履歴</h1>
+            <br />
+            <h:dataTable styleClass="historyTabel" border="1"
+                         value="#{mainBean.tableData}" var="history">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Image" />
+                    </f:facet>
+                    <h:graphicImage url="#{history.image}" width="160" height="240" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Message" />
+                    </f:facet>
+                    <h:outputText value="#{history.message}" />
+                </h:column>
+            </h:dataTable>
+        </div>
+    </ui:define>
+    
+</ui:composition>
