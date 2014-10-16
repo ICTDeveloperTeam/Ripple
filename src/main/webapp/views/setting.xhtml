@@ -21,7 +21,7 @@
                     <p:tab title="プロフィール">
                         <h:panelGrid columns="2" cellpadding="10">
                             <p:graphicImage url="画像パス" />
-                            <h:panelGrid columns="3" cellpadding="4">
+                            <h:panelGrid columns="4" cellpadding="4">
                                 
                                 <!-- ニックネーム設定 -->
                                 <h:outputText value="ニックネーム" />
@@ -40,40 +40,60 @@
                                                  rendered="#{not settingFlags.nickNameFlag}" value="Commit"
                                                  action="#{settingFlags.setNickNameFlag(true)}" />
                                 
-                                <!-- 趣味設定 -->
-                                <h:outputText value="趣味" />
+                                <!-- プロフィール設定 -->
+                                <h:outputText value="プロフィール" />
                                 
-                                <h:outputText rendered="#{settingFlags.hobbyFlag}"
-                                              value="#{settingBean.hobby}" />
+                                <h:outputText rendered="#{settingFlags.profileFlag}"
+                                              value="#{settingBean.profile}" />
                                 
-                                <h:inputText rendered="#{not settingFlags.hobbyFlag}"
-                                             pt:placeholzder="趣味" value="#{settingBean.hobby}" />
-                                
-                                <h:commandButton pt:id="hobbyEditButton" type="submit"
-                                                 rendered="#{settingFlags.hobbyFlag}" value="Edit"
-                                                 action="#{settingFlags.setHobbyFlag(false)}" />
+                                <h:inputTextarea rendered="#{not settingFlags.profileFlag}"
+                                             pt:placeholzder="プロフィール" value="#{settingBean.profile}" />
                                 
                                 <h:commandButton pt:id="hobbyEditButton" type="submit"
-                                                 rendered="#{not settingFlags.hobbyFlag}" value="Commit"
-                                                 action="#{settingFlags.setHobbyFlag(true)}" />
+                                                 rendered="#{settingFlags.profileFlag}" value="Edit"
+                                                 action="#{settingFlags.setProfileFlag(false)}" />
                                 
-                                <!-- 好きなもの設定 -->
-                                <h:outputText value="好きなもの" />
+                                <h:commandButton pt:id="hobbyEditButton" type="submit"
+                                                 rendered="#{not settingFlags.profileFlag}" value="Commit"
+                                                 action="#{settingFlags.setProfileFlag(true)}" />
                                 
-                                <h:outputText rendered="#{settingFlags.likeItFlag}"
-                                              value="#{settingBean.likeIt}" />
+                                <!-- 年齢設定 -->
+                                <h:outputText value="年齢" />
                                 
-                                <h:inputText rendered="#{not settingFlags.likeItFlag}"
-                                             pt:placeholder="好きなもの" value="#{settingBean.likeIt}" />
+                                <h:outputText rendered="#{settingFlags.ageFlag}"
+                                              value="#{settingBean.age}" />
                                 
-                                <h:commandButton pt:id="likeItEditButton" type="submit"
-                                                 rendered="#{settingFlags.likeItFlag}" value="Edit"
-                                                 action="#{settingFlags.setLikeItFlag(false)}" />
+                                <h:selectOneMenu rendered="#{not settingFlags.ageFlag}"
+                                                 value="#{settingBean.age}">
+                                    <f:selectItems value="#{settingBean.ageList}" />
+                                </h:selectOneMenu>
                                 
-                                <h:commandButton pt:id="likeItEditButton" type="submit"
-                                                 rendered="#{not settingFlags.likeItFlag}" value="Commit"
-                                                 action="#{settingFlags.setLikeItFlag(true)}" />
+                                <h:commandButton pt:id="ageEditButton" type="submit"
+                                                 rendered="#{settingFlags.ageFlag}" value="Edit"
+                                                 action="#{settingFlags.setAgeFlag(false)}" />
                                 
+                                <h:commandButton pt:id="ageEditButton" type="submit"
+                                                 rendered="#{not settingFlags.ageFlag}" value="Commit"
+                                                 action="#{settingFlags.setAgeFlag(true)}" />
+                                
+                                <!-- 地域設定 -->
+                                <h:outputText value="地域" />
+                                
+                                <h:outputText rendered="#{settingFlags.areaFlag}"
+                                              value="#{settingBean.area}" />
+                                
+                                <h:selectOneMenu rendered="#{not settingFlags.areaFlag}"
+                                                 value="#{settingBean.area}">
+                                    <f:selectItems value="#{settingBean.areaList}" />
+                                </h:selectOneMenu>
+                                
+                                <h:commandButton pt:id="ageEditButton" type="submit"
+                                                 rendered="#{settingFlags.areaFlag}" value="Edit"
+                                                 action="#{settingFlags.setAFlag(false)}" />
+                                
+                                <h:commandButton pt:id="ageEditButton" type="submit"
+                                                 rendered="#{not settingFlags.areaFlag}" value="Commit"
+                                                 action="#{settingFlags.setAgeFlag(true)}" />
                                 <!-- 路線設定 -->
                                 <h:outputText value="よく使う路線" />
                                 
@@ -90,71 +110,10 @@
                                 <h:commandButton pt:id="routeEditButton" type="submit"
                                                  rendered="#{not settingFlags.routeFlag}" value="Commit"
                                                  action="#{settingFlags.setRouteFlag(true)}" />
-                                
-                                <!-- 職業設定 -->
-                                <h:outputText value="職業" />
-                                
-                                <h:outputText rendered="#{settingFlags.jobFlag}"
-                                              value="#{settingBean.job}" />
-                                
-                                <h:inputText rendered="#{not settingFlags.jobFlag}"
-                                             pt:placeholder="職業" value="#{settingBean.job}" />
-                                
-                                <h:commandButton pt:id="jobEditButton" type="submit"
-                                                 rendered="#{settingFlags.jobFlag}" value="Edit"
-                                                 action="#{settingFlags.setJobFlag(false)}" />
-                                
-                                <h:commandButton pt:id="jobEditButton" type="submit"
-                                                 rendered="#{not settingFlags.jobFlag}" value="Commit"
-                                                 action="#{settingFlags.setJobFlag(true)}" />
-                                
-                                <!-- 年齢設定 -->
-                                <h:outputText value="年齢" />
-                                
-                                <h:outputText rendered="#{settingFlags.ageFlag}"
-                                              value="#{settingBean.age}歳" />
-                                
-                                <h:selectOneMenu rendered="#{not settingFlags.ageFlag}"
-                                                 value="#{settingBean.age}">
-                                    <f:selectItems value="#{settingBean.ageList}" />
-                                </h:selectOneMenu>
-                                
-                                <h:commandButton pt:id="ageEditButton" type="submit"
-                                                 rendered="#{settingFlags.ageFlag}" value="Edit"
-                                                 action="#{settingFlags.setAgeFlag(false)}" />
-                                
-                                <h:commandButton pt:id="ageEditButton" type="submit"
-                                                 rendered="#{not settingFlags.ageFlag}" value="Commit"
-                                                 action="#{settingFlags.setAgeFlag(true)}" />
-                                
                             </h:panelGrid>
                         </h:panelGrid>
                     </p:tab>
                 </div>
-                <div class="user-information">
-                    <p:tab title="ユーザー情報">
-                        <h:panelGrid columns="4" cellpadding="10">
-                            
-                            <h:outputText value="Gmailアカウント" />
-                            
-                            <h:outputText rendered="#{settingFlags.gmailFlag}"
-                                          value="#{settingBean.gmail}" />
-                            
-                            <h:inputText rendered="#{not settingFlags.gmailFlag}"
-                                         pt:placeholder="Gmail Adress" value="#{settingBean.gmail}" />
-                            
-                            <h:commandButton pt:id="gmailEditButton" type="submit"
-                                             rendered="#{settingFlags.gmailFlag}" value="Edit"
-                                             action="#{settingFlags.setGmailFlag(false)}" />
-                            
-                            <h:commandButton pt:id="gmailEditButton" type="submit"
-                                             rendered="#{not settingFlags.gmailFlag}" value="Commit"
-                                             action="#{settingFlags.setGmailFlag(true)}" />
-                            
-                        </h:panelGrid>
-                    </p:tab>
-                </div>
-                
                 <div class="public-range">
                     <p:tab title="公開範囲">
                         <h:panelGrid columns="2" cellpadding="10">

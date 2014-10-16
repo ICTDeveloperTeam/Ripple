@@ -20,17 +20,13 @@ public class SettingFlags implements Serializable {
     
     private boolean nickNameFlag = true;
     
-    private boolean hobbyFlag = true;
-    
-    private boolean likeItFlag = true;
+    private boolean profileFlag = true;
     
     private boolean routeFlag = true;
     
-    private boolean jobFlag = true;
-    
     private boolean ageFlag = true;
     
-    private boolean gmailFlag = true;
+    private boolean areaFlag = true;
     
     private boolean twitterFlag = true;
     
@@ -47,22 +43,14 @@ public class SettingFlags implements Serializable {
         this.nickNameFlag = nickNameFlag;
     }
     
-    public boolean isHobbyFlag() {
-        return hobbyFlag;
+    public boolean isProfileFlag() {
+        return profileFlag;
     }
     
-    public void setHobbyFlag(boolean hobbyFlag) {
-        this.hobbyFlag = hobbyFlag;
+    public void setProfileFlag(boolean profileFlag) {
+        this.profileFlag = profileFlag;
     }
-    
-    public boolean isLikeItFlag() {
-        return likeItFlag;
-    }
-    
-    public void setLikeItFlag(boolean likeItFlag) {
-        this.likeItFlag = likeItFlag;
-    }
-    
+
     public boolean isRouteFlag() {
         return routeFlag;
     }
@@ -71,28 +59,12 @@ public class SettingFlags implements Serializable {
         this.routeFlag = routeFlag;
     }
     
-    public boolean isJobFlag() {
-        return jobFlag;
-    }
-    
-    public void setJobFlag(boolean jobFlag) {
-        this.jobFlag = jobFlag;
-    }
-    
     public boolean isAgeFlag() {
         return ageFlag;
     }
     
     public void setAgeFlag(boolean ageFlag) {
         this.ageFlag = ageFlag;
-    }
-    
-    public boolean isGmailFlag() {
-        return gmailFlag;
-    }
-    
-    public void setGmailFlag(boolean gmailFlag) {
-        this.gmailFlag = gmailFlag;
     }
     
     public boolean isTwitterFlag() {
@@ -109,6 +81,20 @@ public class SettingFlags implements Serializable {
     
     public void setTrueFlag(boolean trueFlag) {
         this.trueFlag = trueFlag;
+    }
+
+    /**
+     * @return the areaFlag
+     */
+    public boolean isAreaFlag() {
+        return areaFlag;
+    }
+
+    /**
+     * @param areaFlag the areaFlag to set
+     */
+    public void setAreaFlag(boolean areaFlag) {
+        this.areaFlag = areaFlag;
     }
     
 }
