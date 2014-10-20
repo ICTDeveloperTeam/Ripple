@@ -155,6 +155,82 @@
                     </p:tab>
                 </div>
                 
+=======
+                                <!-- プロフィール設定 -->
+                                <h:outputText value="プロフィール" />
+                                
+                                <h:outputText rendered="#{settingFlags.profileFlag}"
+                                              value="#{settingBean.profile}" />
+                                
+                                <h:inputTextarea rendered="#{not settingFlags.profileFlag}"
+                                             pt:placeholzder="プロフィール" value="#{settingBean.profile}" />
+                                
+                                <h:commandButton pt:id="hobbyEditButton" type="submit"
+                                                 rendered="#{settingFlags.profileFlag}" value="Edit"
+                                                 action="#{settingFlags.setProfileFlag(false)}" />
+                                
+                                <h:commandButton pt:id="hobbyEditButton" type="submit"
+                                                 rendered="#{not settingFlags.profileFlag}" value="Commit"
+                                                 action="#{settingFlags.setProfileFlag(true)}" />
+                                
+                                <!-- 年齢設定 -->
+                                <h:outputText value="年齢" />
+                                
+                                <h:outputText rendered="#{settingFlags.ageFlag}"
+                                              value="#{settingBean.age}" />
+                                
+                                <h:selectOneMenu rendered="#{not settingFlags.ageFlag}"
+                                                 value="#{settingBean.age}">
+                                    <f:selectItems value="#{settingBean.ageList}" />
+                                </h:selectOneMenu>
+                                
+                                <h:commandButton pt:id="ageEditButton" type="submit"
+                                                 rendered="#{settingFlags.ageFlag}" value="Edit"
+                                                 action="#{settingFlags.setAgeFlag(false)}" />
+                                
+                                <h:commandButton pt:id="ageEditButton" type="submit"
+                                                 rendered="#{not settingFlags.ageFlag}" value="Commit"
+                                                 action="#{settingFlags.setAgeFlag(true)}" />
+                                
+                                <!-- 地域設定 -->
+                                <h:outputText value="地域" />
+                                
+                                <h:outputText rendered="#{settingFlags.areaFlag}"
+                                              value="#{settingBean.area}" />
+                                
+                                <h:selectOneMenu rendered="#{not settingFlags.areaFlag}"
+                                                 value="#{settingBean.area}">
+                                    <f:selectItems value="#{settingBean.areaList}" />
+                                </h:selectOneMenu>
+                                
+                                <h:commandButton pt:id="ageEditButton" type="submit"
+                                                 rendered="#{settingFlags.areaFlag}" value="Edit"
+                                                 action="#{settingFlags.setAFlag(false)}" />
+                                
+                                <h:commandButton pt:id="ageEditButton" type="submit"
+                                                 rendered="#{not settingFlags.areaFlag}" value="Commit"
+                                                 action="#{settingFlags.setAgeFlag(true)}" />
+                                <!-- 路線設定 -->
+                                <h:outputText value="よく使う路線" />
+                                
+                                <h:outputText rendered="#{settingFlags.routeFlag}"
+                                              value="#{settingBean.route}" />
+                                
+                                <h:inputText rendered="#{not settingFlags.routeFlag}"
+                                             pt:placeholder="よく使う路線" value="#{settingBean.route}" />
+                                
+                                <h:commandButton pt:id="routeEditButton" type="submit"
+                                                 rendered="#{settingFlags.routeFlag}" value="Edit"
+                                                 action="#{settingFlags.setRouteFlag(false)}" />
+                                
+                                <h:commandButton pt:id="routeEditButton" type="submit"
+                                                 rendered="#{not settingFlags.routeFlag}" value="Commit"
+                                                 action="#{settingFlags.setRouteFlag(true)}" />
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    </p:tab>
+                </div>
+>>>>>>> 02a9fc064f720cf10080ee18891d8ea80c0442eb
                 <div class="public-range">
                     <p:tab title="公開範囲">
                         <h:panelGrid columns="2" cellpadding="10">

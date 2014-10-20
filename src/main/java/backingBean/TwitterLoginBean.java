@@ -35,7 +35,7 @@ public class TwitterLoginBean {
     }
     
     public void twitterLogin() throws TwitterException, IOException{
-        RequestToken requestToken = twitterSession.getTwitter().getOAuthRequestToken("http://localhost:8080/HackUWebApp/faces/views/main.xhtml");
+        RequestToken requestToken = twitterSession.getTwitter().getOAuthRequestToken("http://localhost:8080/Ripple/faces/views/main.xhtml");
         twitterSession.setRequestToken(requestToken);
         ExternalContext externalContet = FacesContext.getCurrentInstance().getExternalContext();
         externalContet.redirect(requestToken.getAuthenticationURL());

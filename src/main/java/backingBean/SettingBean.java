@@ -5,7 +5,6 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.model.SelectItem;
 
 /**
  *
@@ -17,19 +16,11 @@ public class SettingBean implements Serializable {
     
     private String nickName = null;
     
-    private String hobby = null;
-    
-    private String likeIt = null;
+    private String profile = null;
     
     private String route = null;
     
-    private String job = null;
-    
-    private String product = null;
-    
     private String age = null;
-    
-    private String gmail = null;
     
     private String twitter = null;
     
@@ -37,15 +28,15 @@ public class SettingBean implements Serializable {
     
     private boolean notificationFlag = true;
     
-    private List<SelectItem> ageList = new ArrayList<SelectItem>();
+    private List<String> ageList = new ArrayList<String>();
     
     public SettingBean() {
         int i=0;
-        this.ageList.add(new SelectItem(i++, "10代"));
+        this.ageList.add("10代");
         for (int j = 20; j < 70; j+=5,i++) {
-            this.ageList.add(new SelectItem(i, j+"代"));
+            this.ageList.add(j+"代");
         }
-        this.ageList.add(new SelectItem(i, "70歳以上"));
+        this.ageList.add("70歳以上");
     }
     
     public String getNickName() {
@@ -55,37 +46,13 @@ public class SettingBean implements Serializable {
     public void setNickName(String nickName) {
         this.nickName = nickName;
     }
-    
-    public String getHobby() {
-        return hobby;
-    }
-    
-    public void setHobby(String hobby) {
-        this.hobby = hobby;
-    }
-    
-    public String getLikeIt() {
-        return likeIt;
-    }
-    
-    public void setLikeIt(String likeIt) {
-        this.likeIt = likeIt;
-    }
-    
+   
     public String getRoute() {
         return route;
     }
     
     public void setRoute(String route) {
         this.route = route;
-    }
-    
-    public String getJob() {
-        return job;
-    }
-    
-    public void setJob(String job) {
-        this.job = job;
     }
     
     public String getAge() {
@@ -96,20 +63,12 @@ public class SettingBean implements Serializable {
         this.age = age;
     }
     
-    public List<SelectItem> getAgeList() {
+    public List<String> getAgeList() {
         return ageList;
     }
     
-    public void setAgeList(List<SelectItem> ageList) {
+    public void setAgeList(List<String> ageList) {
         this.ageList = ageList;
-    }
-    
-    public String getGmail() {
-        return gmail;
-    }
-    
-    public void setGmail(String gmail) {
-        this.gmail = gmail;
     }
     
     public String getTwitter() {
@@ -119,15 +78,7 @@ public class SettingBean implements Serializable {
     public void setTwitter(String twitter) {
         this.twitter = twitter;
     }
-    
-    public boolean isValue1() {
-        return notificationFlag;
-    }
-    
-    public void setValue1(boolean notificationFlag) {
-        this.notificationFlag = notificationFlag;
-    }
-    
+
     public boolean isPublicRangeFlag() {
         return publicRangeFlag;
     }
@@ -136,20 +87,20 @@ public class SettingBean implements Serializable {
         this.publicRangeFlag = publicRangeFlag;
     }
     
-    public String getProduct() {
-        return product;
-    }
-    
-    public void setProduct(String product) {
-        this.product = product;
-    }
-    
     public boolean isNotificationFlag() {
         return notificationFlag;
     }
     
     public void setNotificationFlag(boolean notificationFlag) {
         this.notificationFlag = notificationFlag;
+    }
+
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
     }
     
 }
