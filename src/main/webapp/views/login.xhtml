@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html" lang="ja">
+    <f:view>
+        <h:head>
+            <meta charset="UTF-8" />
+            <title>Be contact</title>
+        </h:head>
+        <h:body>
+            <div id="header">
+                <h:outputText value="Be Contact" />
+            </div>
+            <div class="app-outline">
+                <h1>
+                    <h:outputText value="半径１０ｍで起こる新たな出会い" />
+                </h1>
+                <br />
+                <h:outputText value="アナタの日常に”いいね”をつけたい人はいませんか？" />
+                <br />
+                <h:outputText value="”いいね”は新たな繋がりのきっかけ。" />
+                <br />
+                <h:outputText value="”いいね”がアナタの背中を押します。" />
+                <br />
+            </div>
+            <div class="certification-block">
+                <div class="login-box">
+                    <h:form acceptcharset="UTF-8">
+                        <h:commandButton value="Login" action="#{loginBean.toMain()}" />
+                    </h:form>
+                </div>
+                <br />
+                <div class="twitter-login-box">
+                    <h:form acceptcharset="UTF-8">
+                        <h:commandButton value="Login with Twitter" action="#{twitterLoginBean.twitterLogin()}" />
+                    </h:form>
+                </div>
+                <br />
+                <div class="new-register">
+                    <h:form acceptcharset="UTF-8">
+                        <h:commandButton value="Sign Up" action="#{loginBean.toSignUp()}" />
+                    </h:form>
+                </div>
+            </div>
+        </h:body>
+    </f:view>
+</html>
