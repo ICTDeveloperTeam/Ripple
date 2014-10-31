@@ -6,10 +6,8 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,15 +15,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -37,19 +32,12 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 @NamedQueries({
     @NamedQuery(name = "UserMaster.findAll", query = "SELECT u FROM UserMaster u"),
     @NamedQuery(name = "UserMaster.findByUserID", query = "SELECT u FROM UserMaster u WHERE u.userID = :userID"),
-    @NamedQuery(name = "UserMaster.findByCookie", query = "SELECT u FROM UserMaster u WHERE u.cookie = :cookie"),
     @NamedQuery(name = "UserMaster.findByTwitterID", query = "SELECT u FROM UserMaster u WHERE u.twitterID = :twitterID"),
     @NamedQuery(name = "UserMaster.findByTwitterAccessToken", query = "SELECT u FROM UserMaster u WHERE u.twitterAccessToken = :twitterAccessToken"),
-    @NamedQuery(name = "UserMaster.findByUserStatus", query = "SELECT u FROM UserMaster u WHERE u.userStatus = :userStatus"),
-    @NamedQuery(name = "UserMaster.findByBtpin", query = "SELECT u FROM UserMaster u WHERE u.btpin = :btpin"),
-    @NamedQuery(name = "UserMaster.findByMACAdr", query = "SELECT u FROM UserMaster u WHERE u.mACAdr = :mACAdr"),
-    @NamedQuery(name = "UserMaster.findByLenDevToken", query = "SELECT u FROM UserMaster u WHERE u.lenDevToken = :lenDevToken"),
+    @NamedQuery(name = "UserMaster.findByMacAdr", query = "SELECT u FROM UserMaster u WHERE u.macAdr = :macAdr"),
     @NamedQuery(name = "UserMaster.findByDevToken", query = "SELECT u FROM UserMaster u WHERE u.devToken = :devToken"),
-    @NamedQuery(name = "UserMaster.findByLenRegID", query = "SELECT u FROM UserMaster u WHERE u.lenRegID = :lenRegID"),
     @NamedQuery(name = "UserMaster.findByRegID", query = "SELECT u FROM UserMaster u WHERE u.regID = :regID"),
     @NamedQuery(name = "UserMaster.findByRegisterDate", query = "SELECT u FROM UserMaster u WHERE u.registerDate = :registerDate"),
-    @NamedQuery(name = "UserMaster.findByFirstName", query = "SELECT u FROM UserMaster u WHERE u.firstName = :firstName"),
-    @NamedQuery(name = "UserMaster.findByLastName", query = "SELECT u FROM UserMaster u WHERE u.lastName = :lastName"),
     @NamedQuery(name = "UserMaster.findByNickName", query = "SELECT u FROM UserMaster u WHERE u.nickName = :nickName"),
     @NamedQuery(name = "UserMaster.findByImagePath", query = "SELECT u FROM UserMaster u WHERE u.imagePath = :imagePath"),
     @NamedQuery(name = "UserMaster.findByPrefecture", query = "SELECT u FROM UserMaster u WHERE u.prefecture = :prefecture"),
@@ -64,11 +52,6 @@ public class UserMaster implements Serializable {
     private Integer userID;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "Cookie")
-    private String cookie;
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 256)
     @Column(name = "TwitterID")
     private String twitterID;
@@ -79,30 +62,14 @@ public class UserMaster implements Serializable {
     private String twitterAccessToken;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "UserStatus")
-    private int userStatus;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "BTPIN")
-    private int btpin;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 16)
-    @Column(name = "MACAdr")
-    private String mACAdr;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "LenDevToken")
-    private int lenDevToken;
+    @Size(min = 1, max = 17)
+    @Column(name = "MacAdr")
+    private String macAdr;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 128)
     @Column(name = "DevToken")
     private String devToken;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "LenRegID")
-    private int lenRegID;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 256)
@@ -113,16 +80,6 @@ public class UserMaster implements Serializable {
     @Column(name = "RegisterDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date registerDate;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 32)
-    @Column(name = "FirstName")
-    private String firstName;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 32)
-    @Column(name = "LastName")
-    private String lastName;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 32)
@@ -148,10 +105,6 @@ public class UserMaster implements Serializable {
     @Size(min = 1, max = 256)
     @Column(name = "Route")
     private String route;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userID")
-    private Collection<LoginInfo> loginInfoCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userID")
-    private Collection<Contact> contactCollection;
 
     public UserMaster() {
     }
@@ -160,21 +113,14 @@ public class UserMaster implements Serializable {
         this.userID = userID;
     }
 
-    public UserMaster(Integer userID, String cookie, String twitterID, String twitterAccessToken, int userStatus, int btpin, String mACAdr, int lenDevToken, String devToken, int lenRegID, String regID, Date registerDate, String firstName, String lastName, String nickName, String imagePath, String prefecture, String introduction, String route) {
+    public UserMaster(Integer userID, String twitterID, String twitterAccessToken, String macAdr, String devToken, String regID, Date registerDate, String nickName, String imagePath, String prefecture, String introduction, String route) {
         this.userID = userID;
-        this.cookie = cookie;
         this.twitterID = twitterID;
         this.twitterAccessToken = twitterAccessToken;
-        this.userStatus = userStatus;
-        this.btpin = btpin;
-        this.mACAdr = mACAdr;
-        this.lenDevToken = lenDevToken;
+        this.macAdr = macAdr;
         this.devToken = devToken;
-        this.lenRegID = lenRegID;
         this.regID = regID;
         this.registerDate = registerDate;
-        this.firstName = firstName;
-        this.lastName = lastName;
         this.nickName = nickName;
         this.imagePath = imagePath;
         this.prefecture = prefecture;
@@ -188,14 +134,6 @@ public class UserMaster implements Serializable {
 
     public void setUserID(Integer userID) {
         this.userID = userID;
-    }
-
-    public String getCookie() {
-        return cookie;
-    }
-
-    public void setCookie(String cookie) {
-        this.cookie = cookie;
     }
 
     public String getTwitterID() {
@@ -214,36 +152,12 @@ public class UserMaster implements Serializable {
         this.twitterAccessToken = twitterAccessToken;
     }
 
-    public int getUserStatus() {
-        return userStatus;
+    public String getMacAdr() {
+        return macAdr;
     }
 
-    public void setUserStatus(int userStatus) {
-        this.userStatus = userStatus;
-    }
-
-    public int getBtpin() {
-        return btpin;
-    }
-
-    public void setBtpin(int btpin) {
-        this.btpin = btpin;
-    }
-
-    public String getMACAdr() {
-        return mACAdr;
-    }
-
-    public void setMACAdr(String mACAdr) {
-        this.mACAdr = mACAdr;
-    }
-
-    public int getLenDevToken() {
-        return lenDevToken;
-    }
-
-    public void setLenDevToken(int lenDevToken) {
-        this.lenDevToken = lenDevToken;
+    public void setMacAdr(String macAdr) {
+        this.macAdr = macAdr;
     }
 
     public String getDevToken() {
@@ -252,14 +166,6 @@ public class UserMaster implements Serializable {
 
     public void setDevToken(String devToken) {
         this.devToken = devToken;
-    }
-
-    public int getLenRegID() {
-        return lenRegID;
-    }
-
-    public void setLenRegID(int lenRegID) {
-        this.lenRegID = lenRegID;
     }
 
     public String getRegID() {
@@ -276,22 +182,6 @@ public class UserMaster implements Serializable {
 
     public void setRegisterDate(Date registerDate) {
         this.registerDate = registerDate;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getNickName() {
@@ -332,26 +222,6 @@ public class UserMaster implements Serializable {
 
     public void setRoute(String route) {
         this.route = route;
-    }
-
-    @XmlTransient
-    @JsonIgnore
-    public Collection<LoginInfo> getLoginInfoCollection() {
-        return loginInfoCollection;
-    }
-
-    public void setLoginInfoCollection(Collection<LoginInfo> loginInfoCollection) {
-        this.loginInfoCollection = loginInfoCollection;
-    }
-
-    @XmlTransient
-    @JsonIgnore
-    public Collection<Contact> getContactCollection() {
-        return contactCollection;
-    }
-
-    public void setContactCollection(Collection<Contact> contactCollection) {
-        this.contactCollection = contactCollection;
     }
 
     @Override

@@ -13,8 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -34,11 +32,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Contact.findAll", query = "SELECT c FROM Contact c"),
     @NamedQuery(name = "Contact.findByContactID", query = "SELECT c FROM Contact c WHERE c.contactID = :contactID"),
+    @NamedQuery(name = "Contact.findByUserID", query = "SELECT c FROM Contact c WHERE c.userID = :userID"),
     @NamedQuery(name = "Contact.findByReceiveUID", query = "SELECT c FROM Contact c WHERE c.receiveUID = :receiveUID"),
     @NamedQuery(name = "Contact.findByRefreshDate", query = "SELECT c FROM Contact c WHERE c.refreshDate = :refreshDate"),
-    @NamedQuery(name = "Contact.findByMessage", query = "SELECT c FROM Contact c WHERE c.message = :message"),
-    @NamedQuery(name = "Contact.findByMessageID", query = "SELECT c FROM Contact c WHERE c.messageID = :messageID"),
-    @NamedQuery(name = "Contact.findByOpenProfileFlag", query = "SELECT c FROM Contact c WHERE c.openProfileFlag = :openProfileFlag")})
+    @NamedQuery(name = "Contact.findByContactTypeID", query = "SELECT c FROM Contact c WHERE c.contactTypeID = :contactTypeID"),
+    @NamedQuery(name = "Contact.findByMessage", query = "SELECT c FROM Contact c WHERE c.message = :message")})
 public class Contact implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -46,6 +44,10 @@ public class Contact implements Serializable {
     @Basic(optional = false)
     @Column(name = "ContactID")
     private Integer contactID;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "UserID")
+    private int userID;
     @Basic(optional = false)
     @NotNull
     @Column(name = "ReceiveUID")
@@ -57,23 +59,13 @@ public class Contact implements Serializable {
     private Date refreshDate;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "ContactTypeID")
+    private int contactTypeID;
+    @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 256)
     @Column(name = "Message")
     private String message;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "MessageID")
-    private int messageID;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "OpenProfileFlag")
-    private int openProfileFlag;
-    @JoinColumn(name = "UserID", referencedColumnName = "UserID")
-    @ManyToOne(optional = false)
-    private UserMaster userID;
-    @JoinColumn(name = "ContactTypeID", referencedColumnName = "ContactTypeID")
-    @ManyToOne(optional = false)
-    private ContactType contactTypeID;
 
     public Contact() {
     }
@@ -82,13 +74,13 @@ public class Contact implements Serializable {
         this.contactID = contactID;
     }
 
-    public Contact(Integer contactID, int receiveUID, Date refreshDate, String message, int messageID, int openProfileFlag) {
+    public Contact(Integer contactID, int userID, int receiveUID, Date refreshDate, int contactTypeID, String message) {
         this.contactID = contactID;
+        this.userID = userID;
         this.receiveUID = receiveUID;
         this.refreshDate = refreshDate;
+        this.contactTypeID = contactTypeID;
         this.message = message;
-        this.messageID = messageID;
-        this.openProfileFlag = openProfileFlag;
     }
 
     public Integer getContactID() {
@@ -97,6 +89,14 @@ public class Contact implements Serializable {
 
     public void setContactID(Integer contactID) {
         this.contactID = contactID;
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
     public int getReceiveUID() {
@@ -115,44 +115,20 @@ public class Contact implements Serializable {
         this.refreshDate = refreshDate;
     }
 
+    public int getContactTypeID() {
+        return contactTypeID;
+    }
+
+    public void setContactTypeID(int contactTypeID) {
+        this.contactTypeID = contactTypeID;
+    }
+
     public String getMessage() {
         return message;
     }
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public int getMessageID() {
-        return messageID;
-    }
-
-    public void setMessageID(int messageID) {
-        this.messageID = messageID;
-    }
-
-    public int getOpenProfileFlag() {
-        return openProfileFlag;
-    }
-
-    public void setOpenProfileFlag(int openProfileFlag) {
-        this.openProfileFlag = openProfileFlag;
-    }
-
-    public UserMaster getUserID() {
-        return userID;
-    }
-
-    public void setUserID(UserMaster userID) {
-        this.userID = userID;
-    }
-
-    public ContactType getContactTypeID() {
-        return contactTypeID;
-    }
-
-    public void setContactTypeID(ContactType contactTypeID) {
-        this.contactTypeID = contactTypeID;
     }
 
     @Override

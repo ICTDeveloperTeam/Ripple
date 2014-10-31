@@ -13,15 +13,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -34,8 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "LoginInfo.findAll", query = "SELECT l FROM LoginInfo l"),
     @NamedQuery(name = "LoginInfo.findByLogID", query = "SELECT l FROM LoginInfo l WHERE l.logID = :logID"),
-    @NamedQuery(name = "LoginInfo.findByIPv4", query = "SELECT l FROM LoginInfo l WHERE l.iPv4 = :iPv4"),
-    @NamedQuery(name = "LoginInfo.findByIPv6", query = "SELECT l FROM LoginInfo l WHERE l.iPv6 = :iPv6"),
+    @NamedQuery(name = "LoginInfo.findByUserID", query = "SELECT l FROM LoginInfo l WHERE l.userID = :userID"),
     @NamedQuery(name = "LoginInfo.findByLoginDate", query = "SELECT l FROM LoginInfo l WHERE l.loginDate = :loginDate"),
     @NamedQuery(name = "LoginInfo.findByLogoutDate", query = "SELECT l FROM LoginInfo l WHERE l.logoutDate = :logoutDate")})
 public class LoginInfo implements Serializable {
@@ -47,14 +43,8 @@ public class LoginInfo implements Serializable {
     private Integer logID;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 15)
-    @Column(name = "IPv4")
-    private String iPv4;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 40)
-    @Column(name = "IPv6")
-    private String iPv6;
+    @Column(name = "UserID")
+    private int userID;
     @Basic(optional = false)
     @NotNull
     @Column(name = "LoginDate")
@@ -65,9 +55,6 @@ public class LoginInfo implements Serializable {
     @Column(name = "LogoutDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date logoutDate;
-    @JoinColumn(name = "UserID", referencedColumnName = "UserID")
-    @ManyToOne(optional = false)
-    private UserMaster userID;
 
     public LoginInfo() {
     }
@@ -76,10 +63,9 @@ public class LoginInfo implements Serializable {
         this.logID = logID;
     }
 
-    public LoginInfo(Integer logID, String iPv4, String iPv6, Date loginDate, Date logoutDate) {
+    public LoginInfo(Integer logID, int userID, Date loginDate, Date logoutDate) {
         this.logID = logID;
-        this.iPv4 = iPv4;
-        this.iPv6 = iPv6;
+        this.userID = userID;
         this.loginDate = loginDate;
         this.logoutDate = logoutDate;
     }
@@ -92,20 +78,12 @@ public class LoginInfo implements Serializable {
         this.logID = logID;
     }
 
-    public String getIPv4() {
-        return iPv4;
+    public int getUserID() {
+        return userID;
     }
 
-    public void setIPv4(String iPv4) {
-        this.iPv4 = iPv4;
-    }
-
-    public String getIPv6() {
-        return iPv6;
-    }
-
-    public void setIPv6(String iPv6) {
-        this.iPv6 = iPv6;
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
     public Date getLoginDate() {
@@ -122,14 +100,6 @@ public class LoginInfo implements Serializable {
 
     public void setLogoutDate(Date logoutDate) {
         this.logoutDate = logoutDate;
-    }
-
-    public UserMaster getUserID() {
-        return userID;
-    }
-
-    public void setUserID(UserMaster userID) {
-        this.userID = userID;
     }
 
     @Override
