@@ -1,10 +1,12 @@
 package backingBean;
 
+import ejb.UserMasterFacade;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.EJB;
 
 /**
  *
@@ -13,6 +15,9 @@ import java.util.List;
 @Named(value = "settingBean")
 @SessionScoped
 public class SettingBean implements Serializable {
+    
+    @EJB
+    UserMasterFacade umejb = new UserMasterFacade();
     
     private String nickName = null;
     
@@ -40,7 +45,7 @@ public class SettingBean implements Serializable {
     }
     
     public String getNickName() {
-        return nickName;
+       return umejb.getNickName("mayuyuyu0106");
     }
     
     public void setNickName(String nickName) {

@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ejb;
+package ejb.json;
 
-import entities.json.pojo.PeopleAround;
+import entities.json.pojo.ContactData;
 import entities.service.AbstractFacade;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -16,7 +16,7 @@ import javax.persistence.PersistenceContext;
  * @author YusukeKato
  */
 @Stateless
-public class PeopleAroundFacade extends AbstractFacade<PeopleAround> {
+public class ContactDataFacade extends AbstractFacade<ContactData> {
     @PersistenceContext(unitName = "jp.ac.u-tokai.ictedu.hacku14.ripple_Ripple_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
@@ -25,8 +25,8 @@ public class PeopleAroundFacade extends AbstractFacade<PeopleAround> {
         return em;
     }
 
-    public PeopleAroundFacade() {
-        super(PeopleAround.class);
+    public ContactDataFacade() {
+        super(ContactData.class);
     }
     
 }
