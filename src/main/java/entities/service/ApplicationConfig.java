@@ -33,7 +33,6 @@ public class ApplicationConfig extends Application {
         resources.add(entities.json.service.HistoryFacadeREST.class);
         resources.add(entities.json.service.LoginFacadeREST.class);
         resources.add(entities.json.service.MacAdrFacadeREST.class);
-        resources.add(entities.json.service.PeopleAroundFacadeREST.class);
         resources.add(entities.json.service.ProfileConfigFacadeREST.class);
         resources.add(entities.json.service.ProfileFacadeREST.class);
         resources.add(entities.service.ContactFacadeREST.class);

@@ -17,11 +17,13 @@ import javax.ejb.EJB;
 public class SettingBean implements Serializable {
     
     @EJB
-    UserMasterFacade umejb = new UserMasterFacade();
+    private UserMasterFacade umejb;
     
     private String nickName = null;
     
-    private String profile = null;
+    private String introduction = null;
+    
+    private String prefecture=null;
     
     private String route = null;
     
@@ -45,19 +47,23 @@ public class SettingBean implements Serializable {
     }
     
     public String getNickName() {
-       return umejb.getNickName("mayuyuyu0106");
+        this.nickName=umejb.getNickName("mayuyuyu0106");
+       return nickName;
     }
     
     public void setNickName(String nickName) {
-        this.nickName = nickName;
+        this.nickName=nickName;
+        umejb.setNickName("mayuyuyu0106",this.nickName);
     }
    
     public String getRoute() {
-        return umejb.getRoute("");
+        this.route=umejb.getRoute("小田急");
+        return this.route;
     }
     
     public void setRoute(String route) {
-        this.route = route;
+        this.route=route;
+        umejb.setRoute("mayuyuyu0106", this.route);
     }
     
     public String getAge() {
@@ -83,7 +89,7 @@ public class SettingBean implements Serializable {
     public void setTwitter(String twitter) {
         this.twitter = twitter;
     }
-
+    
     public boolean isPublicRangeFlag() {
         return publicRangeFlag;
     }
@@ -99,13 +105,40 @@ public class SettingBean implements Serializable {
     public void setNotificationFlag(boolean notificationFlag) {
         this.notificationFlag = notificationFlag;
     }
-
-    public String getProfile() {
-        return profile;
+    
+    /**
+     * @return the umejb
+     */
+    public UserMasterFacade getUmejb() {
+        return umejb;
     }
-
-    public void setProfile(String profile) {
-        this.profile = profile;
+    
+    /**
+     * @param umejb the umejb to set
+     */
+    public void setUmejb(UserMasterFacade umejb) {
+        this.umejb = umejb;
     }
+    
+    public String getIntroduction() {
+        this.introduction=umejb.getIntroduction("mayuyuyu0106");
+        return this.introduction;
+    }
+    
+    public void setIntroduction(String introduction) {
+        this.introduction=introduction;
+        umejb.setIntroduction("mayuyuyu0106", this.introduction);
+    }
+    
+    public String getPrefecture(){
+        this.prefecture=umejb.getPrefecture("mayuyuyu0106");
+        return this.prefecture;
+    }
+    
+    public void setPrefecture(String prefecture){
+        this.prefecture=prefecture;
+        umejb.setPrefecture("mayuyuyu0106", this.prefecture);
+    }
+    
     
 }

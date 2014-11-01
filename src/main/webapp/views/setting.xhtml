@@ -44,10 +44,10 @@
                                 <h:outputText value="プロフィール" />
                                 
                                 <h:outputText rendered="#{settingFlags.profileFlag}"
-                                              value="#{settingBean.profile}" />
+                                              value="#{settingBean.introduction}" />
                                 
                                 <h:inputTextarea rendered="#{not settingFlags.profileFlag}"
-                                             pt:placeholzder="プロフィール" value="#{settingBean.profile}" />
+                                             pt:placeholzder="プロフィール" value="#{settingBean.introduction}" />
                                 
                                 <h:commandButton pt:id="hobbyEditButton" type="submit"
                                                  rendered="#{settingFlags.profileFlag}" value="Edit"
@@ -80,20 +80,20 @@
                                 <h:outputText value="地域" />
                                 
                                 <h:outputText rendered="#{settingFlags.areaFlag}"
-                                              value="#{settingBean.area}" />
+                                              value="#{settingBean.prefecture}" />
                                 
                                 <h:selectOneMenu rendered="#{not settingFlags.areaFlag}"
-                                                 value="#{settingBean.area}">
+                                                 value="#{settingBean.prefecture}">
                                     <f:selectItems value="#{settingBean.areaList}" />
                                 </h:selectOneMenu>
                                 
                                 <h:commandButton pt:id="ageEditButton" type="submit"
                                                  rendered="#{settingFlags.areaFlag}" value="Edit"
-                                                 action="#{settingFlags.setAFlag(false)}" />
+                                                 action="#{settingFlags.setAreaFlag(false)}" />
                                 
                                 <h:commandButton pt:id="ageEditButton" type="submit"
                                                  rendered="#{not settingFlags.areaFlag}" value="Commit"
-                                                 action="#{settingFlags.setAgeFlag(true)}" />
+                                                 action="#{settingFlags.setAreaFlag(true)}" />
                                 </ui:remove>
                                 <!-- 路線設定 -->
                                 <h:outputText value="よく使う路線" />

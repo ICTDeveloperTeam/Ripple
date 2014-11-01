@@ -6,7 +6,6 @@
 package entities.json.service;
 
 import entities.UserMaster;
-import entities.json.pojo.Profile;
 import entities.json.pojo.ProfileConfig;
 import entities.service.AbstractFacade;
 import javax.ejb.Stateless;
@@ -28,8 +27,6 @@ public class ProfileConfigFacadeREST extends AbstractFacade<UserMaster> {
     private EntityManager em;
     private UserMaster um;
     private Query query;
-    private Profile profile;
-    private ProfileConfig profileConfig;
 
     public ProfileConfigFacadeREST() {
         super(UserMaster.class);
@@ -41,7 +38,6 @@ public class ProfileConfigFacadeREST extends AbstractFacade<UserMaster> {
     public void edit(ProfileConfig entity) {
         query = em.createNamedQuery("UserMaster.findByMacAdr").setParameter("macAdr", entity.getMacAdr());
         um=(UserMaster)query.getSingleResult();
-       
         super.edit(um);
     }
     

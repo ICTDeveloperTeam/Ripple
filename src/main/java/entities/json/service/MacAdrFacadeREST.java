@@ -17,12 +17,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 /**
@@ -36,10 +32,8 @@ public class MacAdrFacadeREST extends AbstractFacade<Profile> {
     private EntityManager em;
     private UserMaster um;
     private Query query;
-    private MacAdr macAdr;
-    private Profile profile;
     private PeopleAround peopleAround;
-
+    
     public MacAdrFacadeREST() {
         super(Profile.class);
     }
@@ -52,58 +46,22 @@ public class MacAdrFacadeREST extends AbstractFacade<Profile> {
         List<PeopleAround> profileList = new ArrayList();
         for(String macAdrString : macAdrList){
             query = em.createNamedQuery("UserMaster.findByMacAdr").setParameter("macAdr", macAdrString);
-            um=(UserMaster)query.getSingleResult();
-            peopleAround.setOtherMacAdr(macAdrString);
-            peopleAround.setIntroduction(um.getIntroduction());
-            peopleAround.setNickName(um.getNickName());
-            peopleAround.setPrefecture(um.getPrefecture());
-            peopleAround.setRoute(um.getRoute());
-            peopleAround.setTwitterID(um.getTwitterID());
-            peopleAround.setImagePath(um.getImagePath());
-            profileList.add(peopleAround);
+            if(!query.getResultList().isEmpty()){
+                um=(UserMaster)query.getSingleResult();
+                peopleAround.setOtherMacAdr(macAdrString);
+                peopleAround.setIntroduction(um.getIntroduction());
+                peopleAround.setNickName(um.getNickName());
+                peopleAround.setPrefecture(um.getPrefecture());
+                peopleAround.setRoute(um.getRoute());
+                peopleAround.setTwitterID(um.getTwitterID());
+                peopleAround.setImagePath(um.getImagePath());
+                profileList.add(peopleAround);
+            }  
         }
-        return profileList;
-    }
-    
-    @PUT
-    @Path("{id}")
-    @Consumes({"application/xml", "application/json"})
-    public void edit(@PathParam("id") String id, Profile entity) {
-        super.edit(entity);
-    }
-    
-    @DELETE
-    @Path("{id}")
-    public void remove(@PathParam("id") String id) {
-        super.remove(super.find(id));
-    }
-    
-    @GET
-    @Path("{id}")
-    @Produces({"application/xml", "application/json"})
-    public Profile find(@PathParam("id") String id) {
-        return super.find(id);
-    }
-    
-    @GET
-    @Override
-    @Produces({"application/xml", "application/json"})
-    public List<Profile> findAll() {
-        return super.findAll();
-    }
-    
-    @GET
-    @Path("{from}/{to}")
-    @Produces({"application/xml", "application/json"})
-    public List<Profile> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return super.findRange(new int[]{from, to});
-    }
-    
-    @GET
-    @Path("count")
-    @Produces("text/plain")
-    public String countREST() {
-        return String.valueOf(super.count());
+        if(!profileList.isEmpty()){
+            return profileList;
+        }
+        return null;
     }
     
     @Override
