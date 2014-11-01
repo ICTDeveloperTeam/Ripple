@@ -56,26 +56,7 @@
                                 <h:commandButton pt:id="hobbyEditButton" type="submit"
                                                  rendered="#{not settingFlags.profileFlag}" value="Commit"
                                                  action="#{settingFlags.setProfileFlag(true)}" />
-                                
-                                <!-- 年齢設定 -->
-                                <h:outputText value="年齢" />
-                                
-                                <h:outputText rendered="#{settingFlags.ageFlag}"
-                                              value="#{settingBean.age}" />
-                                
-                                <h:selectOneMenu rendered="#{not settingFlags.ageFlag}"
-                                                 value="#{settingBean.age}">
-                                    <f:selectItems value="#{settingBean.ageList}" />
-                                </h:selectOneMenu>
-                                
-                                <h:commandButton pt:id="ageEditButton" type="submit"
-                                                 rendered="#{settingFlags.ageFlag}" value="Edit"
-                                                 action="#{settingFlags.setAgeFlag(false)}" />
-                                
-                                <h:commandButton pt:id="ageEditButton" type="submit"
-                                                 rendered="#{not settingFlags.ageFlag}" value="Commit"
-                                                 action="#{settingFlags.setAgeFlag(true)}" />
-                                <ui:remove>
+                             
                                 <!-- 地域設定 -->
                                 <h:outputText value="地域" />
                                 
@@ -94,7 +75,7 @@
                                 <h:commandButton pt:id="ageEditButton" type="submit"
                                                  rendered="#{not settingFlags.areaFlag}" value="Commit"
                                                  action="#{settingFlags.setAreaFlag(true)}" />
-                                </ui:remove>
+                        
                                 <!-- 路線設定 -->
                                 <h:outputText value="よく使う路線" />
                                 

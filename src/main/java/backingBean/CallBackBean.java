@@ -32,6 +32,7 @@ public class CallBackBean {
     @Inject
     private TwitterSession twitterBean;
     
+    
     private String oauthToken;
     
     private String oauthVerifier;
@@ -42,6 +43,7 @@ public class CallBackBean {
         try {
             AccessToken accessToken = twitterBean.getTwitter().getOAuthAccessToken(twitterBean.getRequestToken(), getOauthVerifier());
             twitterBean.getTwitter().setOAuthAccessToken(accessToken);
+            twitterBean.setAccessToken(accessToken);
             User user = twitterBean.getTwitter().showUser(accessToken.getUserId());
             setLoginUserName(user.getName());
         } catch (TwitterException ex) {

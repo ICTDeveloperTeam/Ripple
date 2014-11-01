@@ -4,9 +4,9 @@ import ejb.UserMasterFacade;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import javax.ejb.EJB;
+import javax.inject.Inject;
+import sessionController.TwitterSession;
 
 /**
  *
@@ -19,6 +19,9 @@ public class SettingBean implements Serializable {
     @EJB
     private UserMasterFacade umejb;
     
+    @Inject
+    TwitterSession twitterSession;
+    
     private String nickName = null;
     
     private String introduction = null;
@@ -27,33 +30,25 @@ public class SettingBean implements Serializable {
     
     private String route = null;
     
-    private String age = null;
-    
     private String twitter = null;
     
     private boolean publicRangeFlag = true;
     
     private boolean notificationFlag = true;
     
-    private List<String> ageList = new ArrayList<String>();
+    private long twitterID;
     
     public SettingBean() {
-        int i=0;
-        this.ageList.add("10代");
-        for (int j = 20; j < 70; j+=5,i++) {
-            this.ageList.add(j+"代");
-        }
-        this.ageList.add("70歳以上");
     }
     
     public String getNickName() {
-        this.nickName=umejb.getNickName("mayuyuyu0106");
+        this.nickName=umejb.getNickName(String.valueOf(twitterID));
        return nickName;
     }
     
     public void setNickName(String nickName) {
         this.nickName=nickName;
-        umejb.setNickName("mayuyuyu0106",this.nickName);
+        umejb.setNickName(String.valueOf(twitterID),this.nickName);
     }
    
     public String getRoute() {
@@ -63,25 +58,9 @@ public class SettingBean implements Serializable {
     
     public void setRoute(String route) {
         this.route=route;
-        umejb.setRoute("mayuyuyu0106", this.route);
+        umejb.setRoute(String.valueOf(twitterID), this.route);
     }
-    
-    public String getAge() {
-        return age;
-    }
-    
-    public void setAge(String age) {
-        this.age = age;
-    }
-    
-    public List<String> getAgeList() {
-        return ageList;
-    }
-    
-    public void setAgeList(List<String> ageList) {
-        this.ageList = ageList;
-    }
-    
+  
     public String getTwitter() {
         return twitter;
     }
@@ -121,23 +100,23 @@ public class SettingBean implements Serializable {
     }
     
     public String getIntroduction() {
-        this.introduction=umejb.getIntroduction("mayuyuyu0106");
+        this.introduction=umejb.getIntroduction(String.valueOf(twitterID));
         return this.introduction;
     }
     
     public void setIntroduction(String introduction) {
         this.introduction=introduction;
-        umejb.setIntroduction("mayuyuyu0106", this.introduction);
+        umejb.setIntroduction(String.valueOf(twitterID), this.introduction);
     }
     
     public String getPrefecture(){
-        this.prefecture=umejb.getPrefecture("mayuyuyu0106");
+        this.prefecture=umejb.getPrefecture(String.valueOf(twitterID));
         return this.prefecture;
     }
     
     public void setPrefecture(String prefecture){
         this.prefecture=prefecture;
-        umejb.setPrefecture("mayuyuyu0106", this.prefecture);
+        umejb.setPrefecture(String.valueOf(twitterID), this.prefecture);
     }
     
     

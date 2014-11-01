@@ -11,6 +11,7 @@ import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
+import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 
 /**
@@ -30,6 +31,8 @@ public class TwitterSession implements Serializable {
     private Twitter twitter;
     
     private RequestToken requestToken;
+    
+    private AccessToken accessToken;
     
     @PostConstruct
     public void init(){
@@ -62,5 +65,19 @@ public class TwitterSession implements Serializable {
      */
     public void setRequestToken(RequestToken requestToken) {
         this.requestToken = requestToken;
+    }
+
+    /**
+     * @return the accessToken
+     */
+    public AccessToken getAccessToken() {
+        return accessToken;
+    }
+
+    /**
+     * @param accessToken the accessToken to set
+     */
+    public void setAccessToken(AccessToken accessToken) {
+        this.accessToken = accessToken;
     }
 }
