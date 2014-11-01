@@ -28,7 +28,7 @@ import javax.ws.rs.Produces;
  */
 @Stateless
 @Path("entities.json.pojo.profile")
-public class ProfileFacadeREST extends AbstractFacade<Profile> {
+public class ProfileFacadeREST extends AbstractFacade<UserMaster> {
     @PersistenceContext(unitName = "jp.ac.u-tokai.ictedu.hacku14.ripple_Ripple_war_1.0-SNAPSHOTPU")
     private EntityManager em;
     private UserMaster um;
@@ -36,20 +36,19 @@ public class ProfileFacadeREST extends AbstractFacade<Profile> {
     private Profile profile;
 
     public ProfileFacadeREST() {
-        super(Profile.class);
+        super(UserMaster.class);
     }
 
     @POST
-    @Override
     @Consumes({"application/xml", "application/json"})
     public void create(Profile entity) {
-        super.create(entity);
+        super.create(um);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({"application/xml", "application/json"})
-    public void edit(@PathParam("id") String id, Profile entity) {
+    public void edit(@PathParam("id") String id, UserMaster entity) {
         super.edit(entity);
     }
 
@@ -60,7 +59,7 @@ public class ProfileFacadeREST extends AbstractFacade<Profile> {
     }
 
     @GET
-    @Path("findByMacAdr/{macAdr}")
+    @Path("{macAdr}")
     @Produces({"application/xml", "application/json"})
     public Profile find(@PathParam("macAdr") String macAdr) {
         query = em.createNamedQuery("UserMaster.findByMacAdr").setParameter("macAdr", macAdr);
@@ -70,20 +69,21 @@ public class ProfileFacadeREST extends AbstractFacade<Profile> {
         profile.setPrefecture(um.getPrefecture());
         profile.setRoute(um.getPrefecture());
         profile.setTwitterID(um.getTwitterID());
+        profile.setImagePath(um.getImagePath());
         return profile;
     }
     
     @GET
     @Override
     @Produces({"application/xml", "application/json"})
-    public List<Profile> findAll() {
+    public List<UserMaster> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({"application/xml", "application/json"})
-    public List<Profile> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<UserMaster> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 

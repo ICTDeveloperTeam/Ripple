@@ -22,7 +22,6 @@ public class History implements Serializable{
     private String nickName;
     private int contactType;
     private String message;
-    private boolean openFlag;
     private String twitterID;
     private String imagePath;
 
@@ -66,20 +65,6 @@ public class History implements Serializable{
      */
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    /**
-     * @return the openFlag
-     */
-    public boolean isOpenFlag() {
-        return openFlag;
-    }
-
-    /**
-     * @param openFlag the openFlag to set
-     */
-    public void setOpenFlag(boolean openFlag) {
-        this.openFlag = openFlag;
     }
 
     /**

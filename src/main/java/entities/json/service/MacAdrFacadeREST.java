@@ -7,6 +7,7 @@ package entities.json.service;
 
 import entities.UserMaster;
 import entities.json.pojo.MacAdr;
+import entities.json.pojo.PeopleAround;
 import entities.json.pojo.Profile;
 import entities.service.AbstractFacade;
 import java.util.ArrayList;
@@ -37,7 +38,8 @@ public class MacAdrFacadeREST extends AbstractFacade<Profile> {
     private Query query;
     private MacAdr macAdr;
     private Profile profile;
-    
+    private PeopleAround peopleAround;
+
     public MacAdrFacadeREST() {
         super(Profile.class);
     }
@@ -45,19 +47,20 @@ public class MacAdrFacadeREST extends AbstractFacade<Profile> {
     @POST
     @Consumes({"application/xml", "application/json"})
     @Produces({"application/xml", "application/json"})
-    public List<Profile> create(MacAdr entity) {
+    public List<PeopleAround> create(MacAdr entity) {
         List<String> macAdrList = entity.getOtherMacAdr();
-        List<Profile> profileList = new ArrayList();
+        List<PeopleAround> profileList = new ArrayList();
         for(String macAdrString : macAdrList){
             query = em.createNamedQuery("UserMaster.findByMacAdr").setParameter("macAdr", macAdrString);
             um=(UserMaster)query.getSingleResult();
-            profile.setIntroduciton(um.getIntroduction());
-            profile.setNickName(um.getNickName());
-            profile.setPrefecture(um.getPrefecture());
-            profile.setRoute(um.getRoute());
-            profile.setTwitterID(um.getTwitterID());
-            profile.setImagePath(um.getImagePath());
-            profileList.add(profile);
+            peopleAround.setOtherMacAdr(macAdrString);
+            peopleAround.setIntroduction(um.getIntroduction());
+            peopleAround.setNickName(um.getNickName());
+            peopleAround.setPrefecture(um.getPrefecture());
+            peopleAround.setRoute(um.getRoute());
+            peopleAround.setTwitterID(um.getTwitterID());
+            peopleAround.setImagePath(um.getImagePath());
+            profileList.add(peopleAround);
         }
         return profileList;
     }

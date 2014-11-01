@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class PeopleAround implements Serializable{
     @Id
+    private String twitterID;
     private String otherMacAdr;
     private String nickName;
     private String prefecture;
@@ -107,6 +108,20 @@ public class PeopleAround implements Serializable{
      */
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    /**
+     * @return the twitterID
+     */
+    public String getTwitterID() {
+        return twitterID;
+    }
+
+    /**
+     * @param twitterID the twitterID to set
+     */
+    public void setTwitterID(String twitterID) {
+        this.twitterID = twitterID;
     }
     
 }

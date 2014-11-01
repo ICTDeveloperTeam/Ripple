@@ -9,10 +9,10 @@
 <h:body>
 	<h:form>
 		<div class="leftPane">
-			<h:graphicImage url="/resources/images/" />
+			<h:graphicImage url="/resources/images/"  class="profileImage"/>
 			<h:panelGrid columns="2" cellpadding="10">
 				<h:outputText value="ニックネーム：" />
-				<h:outputText value="nick" />
+				<h:outputText value="#{settingBean.nickName}" />
 				<h:outputText value="プロフィール：" />
                                 <h:outputText value="" />
 				<h:outputText value="Profile" />

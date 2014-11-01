@@ -1,0 +1,54 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2014/11/01, 9:55:46
+    Author     : まゆ
+*/
+@charset "UTF-8";
+
+    head{
+            font-family:'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', 'Helvetica Neue', Helvetica, Arial, Roboto, 'Droid Sans', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', sans-serif;
+            width: 100%;
+        }
+
+    body{
+        border: solid 1px #FCB80A;
+        border-radius: 4px 4px 4px 4px;
+        background-color: #f0f0f0;
+    }
+
+    .alert{
+            background-color: rgba(255,208,61,0.89);
+            border-color: #FCB80A;
+            border-radius: 4px;
+            padding: 8px 35px 8px 14px;
+    }
+    
+    good-past-record{
+        background-color: #FFEBC0;
+    }
+    
+    .border-past-record title{
+        color: #7B6B56;
+        border: solid 1px #f0f0f0;
+        font-weight: bold;
+        font-size: 1.2em;
+    }
+    
+    .receiverImage{
+        width: 65px;
+        height: 65px;
+        box-sizing: border-box;
+        border: 0.5px #FFF;
+    }
+    
+    .sendedMessage{
+        color: #322E2A;
+        font-size: 14px;
+    }
+    
+    
+    

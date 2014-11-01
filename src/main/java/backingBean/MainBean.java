@@ -1,11 +1,12 @@
 package backingBean;
 
+import ejb.ContactFacade;
+import entities.UserMaster;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-import javax.faces.model.SelectItem;
+import javax.ejb.EJB;
 
 /**
  *
@@ -14,21 +15,30 @@ import javax.faces.model.SelectItem;
 @Named(value = "mainBean")
 @SessionScoped
 public class MainBean implements Serializable {
+    @EJB
+    private ContactFacade cfejb;
     
+    private UserMaster um;
+    private List<UserMaster>contactTable;
     /**
      * Creates a new instance of MainBean
      */
     public MainBean() {
+         contactTable = cfejb.getContactInfo("mayuyuyu0106");
     }
     
-    private List<SelectItem> tableData = new ArrayList<SelectItem>();
-    
-    public List<SelectItem> getTableData() {
-        return tableData;
+    /**
+     * @return the contactTable
+     */
+    public List<UserMaster> getContactTable() {
+        return contactTable;
     }
-    
-    public void setTableData(List<SelectItem> tableData) {
-        this.tableData = tableData;
+
+    /**
+     * @param contactTable the contactTable to set
+     */
+    public void setContactTable(List<UserMaster> contactTable) {
+        this.contactTable = contactTable;
     }
     
 }

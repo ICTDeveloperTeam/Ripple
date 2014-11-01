@@ -6,20 +6,29 @@
 package ejb;
 
 import entities.Contact;
+import entities.UserMaster;
 import entities.service.AbstractFacade;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
- * @author YusukeKato
+ * @author まゆ
  */
 @Stateless
 public class ContactFacade extends AbstractFacade<Contact> {
     @PersistenceContext(unitName = "jp.ac.u-tokai.ictedu.hacku14.ripple_Ripple_war_1.0-SNAPSHOTPU")
     private EntityManager em;
+    Query query;
 
+    UserMaster um;
+    List<UserMaster> umList;
+    List<Contact> contact;
+    
+    
     @Override
     protected EntityManager getEntityManager() {
         return em;
@@ -27,6 +36,32 @@ public class ContactFacade extends AbstractFacade<Contact> {
 
     public ContactFacade() {
         super(Contact.class);
+    }
+    
+    public List<UserMaster> getContactInfo(String twitterID){
+        query = em.createNamedQuery("UserMaster.findByTwitterID").setParameter("twitterID", twitterID);//UserMasterからUser情報をすべてとってくるクエリを飛ばしている
+        um=(UserMaster)query.getSingleResult();
+        query = em.createNamedQuery("Contact.findByUserID").setParameter("userID", um.getUserID());
+        contact=query.getResultList();
+        for(Contact cont : contact){
+            query = em.createNamedQuery("UserMaster.findByUserID").setParameter("userID", cont.getReceiveUID());
+            um=(UserMaster)query.getSingleResult();
+            umList.add(um);
+        }
+        return umList;
+    }
+    
+    public List<UserMaster>resContactInfo(String twitterID){
+        query = em.createNamedQuery("UserMaster.findByTwitterID").setParameter("twitterID", twitterID);//UserMasterからUser情報をすべてとってくるクエリを飛ばしている
+        um=(UserMaster)query.getSingleResult();
+        query = em.createNamedQuery("Contact.findByUserID").setParameter("receiveUID", um.getUserID());
+        contact=query.getResultList();
+        for(Contact cont : contact){
+            query = em.createNamedQuery("UserMaster.findByUserID").setParameter("userID", cont.getUserID());
+            um=(UserMaster)query.getSingleResult();
+            umList.add(um);
+        }
+        return umList;
     }
     
 }

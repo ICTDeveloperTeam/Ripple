@@ -53,7 +53,7 @@ public class SettingBean implements Serializable {
     }
    
     public String getRoute() {
-        return route;
+        return umejb.getRoute("");
     }
     
     public void setRoute(String route) {

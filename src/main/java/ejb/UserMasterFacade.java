@@ -7,6 +7,7 @@ package ejb;
 
 import entities.UserMaster;
 import entities.service.AbstractFacade;
+import java.util.Date;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +15,7 @@ import javax.persistence.Query;
 
 /**
  *
- * @author YusukeKato
+ * @author まゆ
  */
 @Stateless
 public class UserMasterFacade extends AbstractFacade<UserMaster> {
@@ -22,6 +23,9 @@ public class UserMasterFacade extends AbstractFacade<UserMaster> {
     private EntityManager em;
     UserMaster um;
     Query query;
+    
+    
+    
     @Override
     protected EntityManager getEntityManager() {
         return em;
@@ -32,8 +36,68 @@ public class UserMasterFacade extends AbstractFacade<UserMaster> {
     }
     
     public UserMaster queryByTwitterID(String twitterID){
-        query = em.createNamedQuery("UserMaster.findByTwitterID").setParameter("twitterID", twitterID);
-        return (UserMaster)query.getSingleResult();    
+        query = em.createNamedQuery("UserMaster.findByTwitterID").setParameter("twitterID", twitterID);//UserMasterからUser情報をすべてとってくるクエリを飛ばしている
+        return (UserMaster)query.getSingleResult();    //クエリをとばした結果をとっているのがこっち
+    }
+    
+     public Integer getUserID(String twitterID){
+        return queryByTwitterID(twitterID).getUserID();
+    }
+    
+     public void setUserID(String twitterID,Integer userID){
+        um = queryByTwitterID(twitterID);
+        um.setUserID(userID);
+        em.merge(um);
+    }
+    
+     public String getTwitterAccessToken(String twitterID){
+        return queryByTwitterID(twitterID).getTwitterAccessToken();
+    }
+    
+     public void setTwitterAccessToken(String twitterID,String twitterAccessToken){
+        um = queryByTwitterID(twitterID);
+        um.setTwitterAccessToken(twitterAccessToken);
+        em.merge(um);
+    }
+    
+     public String getMacAdr(String twitterID){
+        return queryByTwitterID(twitterID).getMacAdr();
+    }
+    
+     public void setMacAdr(String twitterID,String macAdr){
+        um = queryByTwitterID(twitterID);
+        um.setMacAdr(macAdr);
+        em.merge(um);
+    }
+    
+     public String getDevToken(String twitterID){
+        return queryByTwitterID(twitterID).getDevToken();
+    }
+    
+     public void setDevToken(String twitterID,String devToken){
+        um = queryByTwitterID(twitterID);
+        um.setDevToken(devToken);
+        em.merge(um);
+    }
+    
+    public String getRegID(String twitterID){
+        return queryByTwitterID(twitterID).getRegID();
+    }
+    
+    public void setRegID(String twitterID, String regID){
+        um = queryByTwitterID(twitterID);
+        um.setRegID(regID);
+        em.merge(um);
+    }
+    
+     public Date getRegisterDate(String twitterID){
+        return queryByTwitterID(twitterID).getRegisterDate();
+    }
+    
+    public void setRegisterDate(String twitterID, Date registerdate){
+        um = queryByTwitterID(twitterID);
+        um.setRegisterDate(registerdate);
+        em.merge(um);
     }
     
     public String getNickName(String twitterID){
@@ -62,19 +126,32 @@ public class UserMasterFacade extends AbstractFacade<UserMaster> {
     
     public void setPrefecture(String twitterID, String prefecture){
         um = queryByTwitterID(twitterID);
-        um.setImagePath(prefecture);
+        um.setPrefecture(prefecture);
         em.merge(um);
+    }
+    
+     public String getIntroduction(String twitterID){
+        return queryByTwitterID(twitterID).getIntroduction();//UserMasterからTwitterIDに紐づけてとってきた情報の中の、Introductionを取得しているだけ
+    }
+    
+    public void setIntroduction(String twitterID, String introduction){
+        um = queryByTwitterID(twitterID);
+        um.setIntroduction(introduction);
+        em.merge(um);//マージして更新
     }
     
     public String getRoute(String twitterID){
         return queryByTwitterID(twitterID).getRoute();
     }
     
-    public void setRoute(String twitterID, String Route){
+    public void setRoute(String twitterID, String route){
         um = queryByTwitterID(twitterID);
-        um.setImagePath(Route);
+        um.setRoute(route);
         em.merge(um);
     }
+    
+    
+    
     
     
 }

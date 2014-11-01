@@ -16,11 +16,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -35,40 +31,61 @@ public class HistoryFacadeREST extends AbstractFacade<History> {
     @PersistenceContext(unitName = "jp.ac.u-tokai.ictedu.hacku14.ripple_Ripple_war_1.0-SNAPSHOTPU")
     private EntityManager em;
     private UserMaster um;
-    private Contact contact;
+    private List<UserMaster> umList;
+    private List<Contact> contact;
     private ContactType contactType;
     private Query query;
     private ContactData contactData;
-
+    private History history;
+    private List<History> historyList;
+    
     public HistoryFacadeREST() {
         super(History.class);
     }
 
-    @POST
-    @Override
-    @Consumes({"application/xml", "application/json"})
-    public void create(History entity) {
-        super.create(entity);
-    }
-
-    @PUT
-    @Path("{id}")
-    @Consumes({"application/xml", "application/json"})
-    public void edit(@PathParam("id") String id, History entity) {
-        super.edit(entity);
-    }
-
-    @DELETE
-    @Path("{id}")
-    public void remove(@PathParam("id") String id) {
-        super.remove(super.find(id));
-    }
 
     @GET
-    @Path("{id}")
+    @Path("/sent/{macAdr}")
     @Produces({"application/xml", "application/json"})
-    public History find(@PathParam("id") String id) {
-        return super.find(id);
+    public List<History> sent(@PathParam("macAdr") String macAdr) {
+        query = em.createNamedQuery("UserMaster.findByMacAdr").setParameter("macAdr", macAdr);
+        um = (UserMaster)query.getSingleResult();
+        query = em.createNamedQuery("Contact.findByUserID").setParameter("userID", um.getUserID());
+        contact=query.getResultList();
+        for(Contact cont : contact){
+            query=em.createNamedQuery("UserMaster.findByUserID").setParameter("userID", cont.getReceiveUID());
+            um=(UserMaster)query.getSingleResult();
+            history.setContactType(cont.getContactTypeID());
+            history.setImagePath(um.getImagePath());
+            history.setMessage(cont.getMessage());
+            history.setNickName(um.getNickName());
+            history.setOtherMacAdr(um.getMacAdr());
+            history.setTwitterID(um.getTwitterID());
+            historyList.add(history);
+        }
+        return historyList;
+    }
+    
+    @GET
+    @Path("/receive/{macAdr}")
+    @Produces({"application/xml", "application/json"})
+    public List<History> receive(@PathParam("macAdr") String macAdr) {
+        query = em.createNamedQuery("UserMaster.findByMacAdr").setParameter("macAdr", macAdr);
+        um = (UserMaster)query.getSingleResult();
+        query = em.createNamedQuery("Contact.findByUserID").setParameter("receiveUID", um.getUserID());
+        contact=query.getResultList();
+        for(Contact cont : contact){
+            query=em.createNamedQuery("UserMaster.findByUserID").setParameter("userID", cont.getUserID());
+            um=(UserMaster)query.getSingleResult();
+            history.setContactType(cont.getContactTypeID());
+            history.setImagePath(um.getImagePath());
+            history.setMessage(cont.getMessage());
+            history.setNickName(um.getNickName());
+            history.setOtherMacAdr(um.getMacAdr());
+            history.setTwitterID(um.getTwitterID());
+            historyList.add(history);
+        }
+        return historyList;
     }
 
     @GET
@@ -76,20 +93,6 @@ public class HistoryFacadeREST extends AbstractFacade<History> {
     @Produces({"application/xml", "application/json"})
     public List<History> findAll() {
         return super.findAll();
-    }
-
-    @GET
-    @Path("{from}/{to}")
-    @Produces({"application/xml", "application/json"})
-    public List<History> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return super.findRange(new int[]{from, to});
-    }
-
-    @GET
-    @Path("count")
-    @Produces("text/plain")
-    public String countREST() {
-        return String.valueOf(super.count());
     }
 
     @Override
