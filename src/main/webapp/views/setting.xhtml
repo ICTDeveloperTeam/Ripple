@@ -28,10 +28,10 @@
                                 
                                 <h:outputText rendered="#{settingFlags.nickNameFlag}"
                                               value="#{settingBean.nickName}" />
-                                
+
                                 <h:inputText rendered="#{not settingFlags.nickNameFlag}"
                                              pt:placeholder="ニックネーム" value="#{settingBean.nickName}" />
-                                
+
                                 <h:commandButton pt:id="nickNameEditButton" type="submit"
                                                  rendered="#{settingFlags.nickNameFlag}" value="Edit"
                                                  action="#{settingFlags.setNickNameFlag(false)}" />
