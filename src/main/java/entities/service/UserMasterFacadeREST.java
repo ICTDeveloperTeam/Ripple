@@ -6,10 +6,14 @@
 package entities.service;
 
 import entities.UserMaster;
+import entities.json.pojo.Profile;
+import entities.json.pojo.ProfileConfig;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -28,6 +32,8 @@ import javax.ws.rs.Produces;
 public class UserMasterFacadeREST extends AbstractFacade<UserMaster> {
     @PersistenceContext(unitName = "jp.ac.u-tokai.ictedu.hacku14.ripple_Ripple_war_1.0-SNAPSHOTPU")
     private EntityManager em;
+    private UserMaster um;
+    private Query query;
 
     public UserMasterFacadeREST() {
         super(UserMaster.class);
@@ -38,6 +44,36 @@ public class UserMasterFacadeREST extends AbstractFacade<UserMaster> {
     @Consumes({"application/xml", "application/json"})
     public void create(UserMaster entity) {
         super.create(entity);
+    }
+    
+    @POST
+    @Path("profileConfig")
+    @Consumes({"application/xml", "application/json"})
+    public void profileConfig(ProfileConfig entity) {
+        query = em.createNamedQuery("UserMaster.findByMacAdr").setParameter("macAdr", entity.getMacAdr());
+        if(!query.getResultList().isEmpty()){
+            um=(UserMaster)query.getSingleResult();
+            um.setTwitterID(entity.getTwitterID());
+            um.setTwitterAccessToken(entity.getTwitterAccessToken());
+            um.setMacAdr(entity.getMacAdr());
+            um.setRegID(entity.getRegID());
+            um.setNickName(entity.getNickName());
+            um.setPrefecture(entity.getPrefecture());
+            um.setIntroduction(entity.getIntroduction());
+            um.setRoute(entity.getRoute());
+            super.edit(um);
+        }else{
+            um.setTwitterID(entity.getTwitterID());
+            um.setTwitterAccessToken(entity.getTwitterAccessToken());
+            um.setMacAdr(entity.getMacAdr());
+            um.setRegID(entity.getRegID());
+            um.setNickName(entity.getNickName());
+            um.setPrefecture(entity.getPrefecture());
+            um.setIntroduction(entity.getIntroduction());
+            um.setRoute(entity.getRoute());
+            um.setRegisterDate(new Date());
+            super.create(um);
+        }
     }
 
     @PUT
@@ -58,6 +94,25 @@ public class UserMasterFacadeREST extends AbstractFacade<UserMaster> {
     @Produces({"application/xml", "application/json"})
     public UserMaster find(@PathParam("id") Integer id) {
         return super.find(id);
+    }
+    
+    @GET
+    @Path("/profile/{macAdr}")
+    @Produces({"application/xml", "application/json"})
+    public Profile profile(@PathParam("macAdr") String macAdr) {
+        query = em.createNamedQuery("UserMaster.findByMacAdr").setParameter("macAdr", macAdr);
+        if(!query.getResultList().isEmpty()){
+            Profile profile=new Profile();
+            um=(UserMaster)query.getSingleResult();
+            profile.setIntroduciton(um.getIntroduction());
+            profile.setNickName(um.getIntroduction());
+            profile.setPrefecture(um.getPrefecture());
+            profile.setRoute(um.getPrefecture());
+            profile.setTwitterID(um.getTwitterID());
+            profile.setImagePath(um.getImagePath());
+            return profile;
+        }
+        return null;
     }
 
     @GET

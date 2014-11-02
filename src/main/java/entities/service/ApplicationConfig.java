@@ -29,15 +29,11 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(entities.json.service.ContactDataFacadeREST.class);
-        resources.add(entities.json.service.HistoryFacadeREST.class);
-        resources.add(entities.json.service.LoginFacadeREST.class);
-        resources.add(entities.json.service.MacAdrFacadeREST.class);
-        resources.add(entities.json.service.ProfileConfigFacadeREST.class);
-        resources.add(entities.json.service.ProfileFacadeREST.class);
         resources.add(entities.service.ContactFacadeREST.class);
         resources.add(entities.service.ContactTypeFacadeREST.class);
+        resources.add(entities.service.HistoryFacadeREST.class);
         resources.add(entities.service.LoginInfoFacadeREST.class);
+        resources.add(entities.service.MacAdrFacadeREST.class);
         resources.add(entities.service.UserMasterFacadeREST.class);
     }
     

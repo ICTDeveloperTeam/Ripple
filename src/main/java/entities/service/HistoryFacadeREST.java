@@ -3,12 +3,11 @@
 * To change this template file, choose Tools | Templates
 * and open the template in the editor.
 */
-package entities.json.service;
+package entities.service;
 
 import entities.Contact;
 import entities.UserMaster;
 import entities.json.pojo.History;
-import entities.service.AbstractFacade;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -24,8 +23,8 @@ import javax.ws.rs.Produces;
  * @author YusukeKato
  */
 @Stateless
-@Path("entities.json.pojo.history")
-public class HistoryFacadeREST extends AbstractFacade<History> {
+@Path("entities.history")
+public class HistoryFacadeREST{
     @PersistenceContext(unitName = "jp.ac.u-tokai.ictedu.hacku14.ripple_Ripple_war_1.0-SNAPSHOTPU")
     private EntityManager em;
     private Query query;
@@ -35,7 +34,6 @@ public class HistoryFacadeREST extends AbstractFacade<History> {
     private List<History> historyList;
     
     public HistoryFacadeREST() {
-        super(History.class);
     }
     
     @GET
@@ -99,17 +97,5 @@ public class HistoryFacadeREST extends AbstractFacade<History> {
         }
         return null;
     }
-    
-    @GET
-    @Override
-    @Produces({"application/xml", "application/json"})
-    public List<History> findAll() {
-        return super.findAll();
-    }
-    
-    @Override
-    protected EntityManager getEntityManager() {
-        return em;
-    }
-    
+
 }

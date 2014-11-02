@@ -3,13 +3,11 @@
 * To change this template file, choose Tools | Templates
 * and open the template in the editor.
 */
-package entities.json.service;
+package entities.service;
 
 import entities.UserMaster;
 import entities.json.pojo.MacAdr;
 import entities.json.pojo.PeopleAround;
-import entities.json.pojo.Profile;
-import entities.service.AbstractFacade;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -26,16 +24,14 @@ import javax.ws.rs.Produces;
  * @author YusukeKato
  */
 @Stateless
-@Path("entities.json.pojo.macadr")
-public class MacAdrFacadeREST extends AbstractFacade<Profile> {
+@Path("entities.macadr")
+public class MacAdrFacadeREST{
     @PersistenceContext(unitName = "jp.ac.u-tokai.ictedu.hacku14.ripple_Ripple_war_1.0-SNAPSHOTPU")
     private EntityManager em;
     private UserMaster um;
     private Query query;
-    private PeopleAround peopleAround;
     
     public MacAdrFacadeREST() {
-        super(Profile.class);
     }
     
     @POST
@@ -47,6 +43,7 @@ public class MacAdrFacadeREST extends AbstractFacade<Profile> {
         for(String macAdrString : macAdrList){
             query = em.createNamedQuery("UserMaster.findByMacAdr").setParameter("macAdr", macAdrString);
             if(!query.getResultList().isEmpty()){
+                PeopleAround peopleAround =new PeopleAround();
                 um=(UserMaster)query.getSingleResult();
                 peopleAround.setOtherMacAdr(macAdrString);
                 peopleAround.setIntroduction(um.getIntroduction());
@@ -63,10 +60,4 @@ public class MacAdrFacadeREST extends AbstractFacade<Profile> {
         }
         return null;
     }
-    
-    @Override
-    protected EntityManager getEntityManager() {
-        return em;
-    }
-    
 }
