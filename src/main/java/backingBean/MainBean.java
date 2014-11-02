@@ -7,6 +7,8 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.inject.Inject;
+import sessionController.TwitterSession;
 
 /**
  *
@@ -17,6 +19,9 @@ import javax.ejb.EJB;
 public class MainBean implements Serializable {
     @EJB
     private ContactFacade cfejb;
+    
+    @Inject
+    TwitterSession twitterSession;
     
     private UserMaster um;
     private List<UserMaster>tableData;

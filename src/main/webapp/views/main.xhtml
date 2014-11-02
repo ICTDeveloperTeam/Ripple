@@ -10,13 +10,14 @@
     </ui:define>
     
     <ui:define name="content">
+        <h:outputStylesheet library="css" name="main.css" />
         <div>
             <f:metadata>
                 <f:viewParam name="oauth_token" value="#{callBackBean.oauthToken}" />
                 <f:viewParam name="oauth_verifier" value="#{callBackBean.oauthVerifier}" />
                 <f:viewAction action="#{callBackBean.preRender()}" />
             </f:metadata>
-            <h:outputLabel value="#{callBackBean.loginUserName}" />さん、ログインに成功しました。
+            <h:outputLabel value="#{callBackBean.loginUserName}" class="alert"/>さん、ログインに成功しました。
         </div>
         <div class="good-past-record">
             <h1>過去のいいね受信履歴</h1>

@@ -32,23 +32,24 @@ public class SettingBean implements Serializable {
     
     private String twitter = null;
     
+    private String twitterID=null;
+    
     private boolean publicRangeFlag = true;
     
     private boolean notificationFlag = true;
     
-    private long twitterID;
     
-    public SettingBean() {
+    public SettingBean(){
     }
     
     public String getNickName() {
-        this.nickName=umejb.getNickName(String.valueOf(twitterID));
+        this.nickName=umejb.getNickName(twitterID);
        return nickName;
     }
     
     public void setNickName(String nickName) {
         this.nickName=nickName;
-        umejb.setNickName(String.valueOf(twitterID),this.nickName);
+        umejb.setNickName(twitterID,this.nickName);
     }
    
     public String getRoute() {
@@ -58,7 +59,7 @@ public class SettingBean implements Serializable {
     
     public void setRoute(String route) {
         this.route=route;
-        umejb.setRoute(String.valueOf(twitterID), this.route);
+        umejb.setRoute(twitterID, this.route);
     }
   
     public String getTwitter() {
@@ -100,23 +101,23 @@ public class SettingBean implements Serializable {
     }
     
     public String getIntroduction() {
-        this.introduction=umejb.getIntroduction(String.valueOf(twitterID));
+        this.introduction=umejb.getIntroduction(twitterID);
         return this.introduction;
     }
     
     public void setIntroduction(String introduction) {
         this.introduction=introduction;
-        umejb.setIntroduction(String.valueOf(twitterID), this.introduction);
+        umejb.setIntroduction(twitterID, this.introduction);
     }
     
     public String getPrefecture(){
-        this.prefecture=umejb.getPrefecture(String.valueOf(twitterID));
+        this.prefecture=umejb.getPrefecture(twitterID);
         return this.prefecture;
     }
     
     public void setPrefecture(String prefecture){
         this.prefecture=prefecture;
-        umejb.setPrefecture(String.valueOf(twitterID), this.prefecture);
+        umejb.setPrefecture(twitterID, this.prefecture);
     }
     
     

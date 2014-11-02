@@ -35,7 +35,7 @@ public class ProfileFacadeREST extends AbstractFacade<UserMaster> {
     }
     
     @GET
-    @Path("{macAdr}")
+    @Path("/{macAdr}")
     @Produces({"application/xml", "application/json"})
     public Profile find(@PathParam("macAdr") String macAdr) {
         query = em.createNamedQuery("UserMaster.findByMacAdr").setParameter("macAdr", macAdr);

@@ -2,7 +2,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:h="http://xmlns.jcp.org/jsf/html" lang="ja">
+      xmlns:h="http://xmlns.jcp.org/jsf/html" lang="ja"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <f:view>
         <h:head>
             <meta charset="UTF-8" />
@@ -17,19 +18,21 @@
                     <h:outputText value="半径１０ｍで起こる新たな出会い" />
                 </h1>
                 <br />
-                <h:outputText value="アナタの日常に”いいね”をつけたい人はいませんか？" />
+                <h:outputText value="アナタの日常にコンタクトを取りたい人はいませんか？" />
                 <br />
-                <h:outputText value="”いいね”は新たな繋がりのきっかけ。" />
+                <h:outputText value="”Ripple”は新たな繋がりのきっかけ。" />
                 <br />
-                <h:outputText value="”いいね”がアナタの背中を押します。" />
+                <h:outputText value="”Ripple”がアナタの背中を押します。" />
                 <br />
             </div>
             <div class="certification-block">
+                <ui:remove>
                 <div class="login-box">
                     <h:form acceptcharset="UTF-8">
                         <h:commandButton value="Login" action="#{loginBean.toMain()}" />
                     </h:form>
                 </div>
+                </ui:remove>
                 <br />
                 <div class="twitter-login-box">
                     <h:form acceptcharset="UTF-8">

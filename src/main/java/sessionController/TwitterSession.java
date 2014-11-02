@@ -34,50 +34,53 @@ public class TwitterSession implements Serializable {
     
     private AccessToken accessToken;
     
+    private long twitterID;
+    
     @PostConstruct
     public void init(){
         setTwitter(new TwitterFactory().getInstance());
     }
-
+    
     /**
      * @return the twitter
      */
     public Twitter getTwitter() {
         return twitter;
     }
-
+    
     /**
      * @param twitter the twitter to set
      */
     public void setTwitter(Twitter twitter) {
         this.twitter = twitter;
     }
-
+    
     /**
      * @return the requestToken
      */
     public RequestToken getRequestToken() {
         return requestToken;
     }
-
+    
     /**
      * @param requestToken the requestToken to set
      */
     public void setRequestToken(RequestToken requestToken) {
         this.requestToken = requestToken;
     }
-
+    
     /**
      * @return the accessToken
      */
     public AccessToken getAccessToken() {
         return accessToken;
     }
-
+    
     /**
      * @param accessToken the accessToken to set
      */
     public void setAccessToken(AccessToken accessToken) {
         this.accessToken = accessToken;
     }
+   
 }
