@@ -15,7 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -37,9 +36,7 @@ public class ContactType implements Serializable {
     @Basic(optional = false)
     @Column(name = "ContactTypeID")
     private Integer contactTypeID;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 32)
+    @Size(max = 255)
     @Column(name = "Type")
     private String type;
 
@@ -48,11 +45,6 @@ public class ContactType implements Serializable {
 
     public ContactType(Integer contactTypeID) {
         this.contactTypeID = contactTypeID;
-    }
-
-    public ContactType(Integer contactTypeID, String type) {
-        this.contactTypeID = contactTypeID;
-        this.type = type;
     }
 
     public Integer getContactTypeID() {

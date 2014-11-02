@@ -18,7 +18,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -31,9 +30,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "LoginInfo.findAll", query = "SELECT l FROM LoginInfo l"),
     @NamedQuery(name = "LoginInfo.findByLogID", query = "SELECT l FROM LoginInfo l WHERE l.logID = :logID"),
-    @NamedQuery(name = "LoginInfo.findByUserID", query = "SELECT l FROM LoginInfo l WHERE l.userID = :userID"),
     @NamedQuery(name = "LoginInfo.findByLoginDate", query = "SELECT l FROM LoginInfo l WHERE l.loginDate = :loginDate"),
-    @NamedQuery(name = "LoginInfo.findByLogoutDate", query = "SELECT l FROM LoginInfo l WHERE l.logoutDate = :logoutDate")})
+    @NamedQuery(name = "LoginInfo.findByLogoutDate", query = "SELECT l FROM LoginInfo l WHERE l.logoutDate = :logoutDate"),
+    @NamedQuery(name = "LoginInfo.findByUserID", query = "SELECT l FROM LoginInfo l WHERE l.userID = :userID")})
 public class LoginInfo implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,20 +40,14 @@ public class LoginInfo implements Serializable {
     @Basic(optional = false)
     @Column(name = "LogID")
     private Integer logID;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "UserID")
-    private int userID;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "LoginDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date loginDate;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "LogoutDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date logoutDate;
+    @Column(name = "UserID")
+    private Integer userID;
 
     public LoginInfo() {
     }
@@ -63,27 +56,12 @@ public class LoginInfo implements Serializable {
         this.logID = logID;
     }
 
-    public LoginInfo(Integer logID, int userID, Date loginDate, Date logoutDate) {
-        this.logID = logID;
-        this.userID = userID;
-        this.loginDate = loginDate;
-        this.logoutDate = logoutDate;
-    }
-
     public Integer getLogID() {
         return logID;
     }
 
     public void setLogID(Integer logID) {
         this.logID = logID;
-    }
-
-    public int getUserID() {
-        return userID;
-    }
-
-    public void setUserID(int userID) {
-        this.userID = userID;
     }
 
     public Date getLoginDate() {
@@ -100,6 +78,14 @@ public class LoginInfo implements Serializable {
 
     public void setLogoutDate(Date logoutDate) {
         this.logoutDate = logoutDate;
+    }
+
+    public Integer getUserID() {
+        return userID;
+    }
+
+    public void setUserID(Integer userID) {
+        this.userID = userID;
     }
 
     @Override

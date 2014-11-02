@@ -18,7 +18,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -32,11 +31,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Contact.findAll", query = "SELECT c FROM Contact c"),
     @NamedQuery(name = "Contact.findByContactID", query = "SELECT c FROM Contact c WHERE c.contactID = :contactID"),
-    @NamedQuery(name = "Contact.findByUserID", query = "SELECT c FROM Contact c WHERE c.userID = :userID"),
+    @NamedQuery(name = "Contact.findByContactTypeID", query = "SELECT c FROM Contact c WHERE c.contactTypeID = :contactTypeID"),
+    @NamedQuery(name = "Contact.findByMessage", query = "SELECT c FROM Contact c WHERE c.message = :message"),
     @NamedQuery(name = "Contact.findByReceiveUID", query = "SELECT c FROM Contact c WHERE c.receiveUID = :receiveUID"),
     @NamedQuery(name = "Contact.findByRefreshDate", query = "SELECT c FROM Contact c WHERE c.refreshDate = :refreshDate"),
-    @NamedQuery(name = "Contact.findByContactTypeID", query = "SELECT c FROM Contact c WHERE c.contactTypeID = :contactTypeID"),
-    @NamedQuery(name = "Contact.findByMessage", query = "SELECT c FROM Contact c WHERE c.message = :message")})
+    @NamedQuery(name = "Contact.findByUserID", query = "SELECT c FROM Contact c WHERE c.userID = :userID")})
 public class Contact implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,43 +43,24 @@ public class Contact implements Serializable {
     @Basic(optional = false)
     @Column(name = "ContactID")
     private Integer contactID;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "UserID")
-    private int userID;
-    @Basic(optional = false)
-    @NotNull
+    @Column(name = "ContactTypeID")
+    private Integer contactTypeID;
+    @Size(max = 255)
+    @Column(name = "Message")
+    private String message;
     @Column(name = "ReceiveUID")
-    private int receiveUID;
-    @Basic(optional = false)
-    @NotNull
+    private Integer receiveUID;
     @Column(name = "RefreshDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date refreshDate;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ContactTypeID")
-    private int contactTypeID;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 256)
-    @Column(name = "Message")
-    private String message;
+    @Column(name = "UserID")
+    private Integer userID;
 
     public Contact() {
     }
 
     public Contact(Integer contactID) {
         this.contactID = contactID;
-    }
-
-    public Contact(Integer contactID, int userID, int receiveUID, Date refreshDate, int contactTypeID, String message) {
-        this.contactID = contactID;
-        this.userID = userID;
-        this.receiveUID = receiveUID;
-        this.refreshDate = refreshDate;
-        this.contactTypeID = contactTypeID;
-        this.message = message;
     }
 
     public Integer getContactID() {
@@ -91,19 +71,27 @@ public class Contact implements Serializable {
         this.contactID = contactID;
     }
 
-    public int getUserID() {
-        return userID;
+    public Integer getContactTypeID() {
+        return contactTypeID;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setContactTypeID(Integer contactTypeID) {
+        this.contactTypeID = contactTypeID;
     }
 
-    public int getReceiveUID() {
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public Integer getReceiveUID() {
         return receiveUID;
     }
 
-    public void setReceiveUID(int receiveUID) {
+    public void setReceiveUID(Integer receiveUID) {
         this.receiveUID = receiveUID;
     }
 
@@ -115,20 +103,12 @@ public class Contact implements Serializable {
         this.refreshDate = refreshDate;
     }
 
-    public int getContactTypeID() {
-        return contactTypeID;
+    public Integer getUserID() {
+        return userID;
     }
 
-    public void setContactTypeID(int contactTypeID) {
-        this.contactTypeID = contactTypeID;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
+    public void setUserID(Integer userID) {
+        this.userID = userID;
     }
 
     @Override

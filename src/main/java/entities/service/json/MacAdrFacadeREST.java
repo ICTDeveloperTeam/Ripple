@@ -39,8 +39,8 @@ public class MacAdrFacadeREST extends AbstractFacade<Profile> {
     }
     
     @POST
-    @Consumes({"application/xml", "application/json"})
-    @Produces({"application/xml", "application/json"})
+    @Consumes({"application/json"})
+    @Produces({"application/json"})
     public List<PeopleAround> create(MacAdr entity) {
         List<String> macAdrList = entity.getOtherMacAdr();
         List<PeopleAround> profileList = new ArrayList();
@@ -56,7 +56,7 @@ public class MacAdrFacadeREST extends AbstractFacade<Profile> {
                 peopleAround.setTwitterID(um.getTwitterID());
                 peopleAround.setImagePath(um.getImagePath());
                 profileList.add(peopleAround);
-            }  
+            }
         }
         if(!profileList.isEmpty()){
             return profileList;
