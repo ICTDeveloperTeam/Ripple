@@ -6,7 +6,7 @@
                 xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
                 xmlns:p="http://primefaces.org/ui"
                 template="./../template/masterTemplate.xhtml">
-    
+
     <ui:define name="title">
         title
     </ui:define>
@@ -63,10 +63,8 @@
                                 <h:outputText rendered="#{settingFlags.areaFlag}"
                                               value="#{settingBean.prefecture}" />
                                 
-                                <h:selectOneMenu rendered="#{not settingFlags.areaFlag}"
-                                                 value="#{settingBean.prefecture}">
-                                    <f:selectItems value="#{settingBean.areaList}" />
-                                </h:selectOneMenu>
+                                <h:inputText rendered="#{not settingFlags.areaFlag}"
+                                             pt:placeholder="地域" value="#{settingBean.prefecture}" />
                                 
                                 <h:commandButton pt:id="ageEditButton" type="submit"
                                                  rendered="#{settingFlags.areaFlag}" value="Edit"
